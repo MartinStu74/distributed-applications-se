@@ -1,0 +1,38 @@
+﻿@model Fitness_Shop.ViewModels.Orders.IndexVM
+@using Fitness_Shop.Models
+
+@* @foreach(Order order in Model.Orders)
+{
+    <p>@order.OrderId</p>
+    <p>@String.Join(", ",order.OrderProducts.ToList())</p>
+    <p>@order.TotalPrice</p>
+} *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Orders.Count; i++)  //product
+        {
+            foreach (OrderProduct orderProduct in Model.Orders[i].OrderProducts)
+            {
+                <tr>
+                    <td>@orderProduct.Product.Name</td>
+                    <td>@orderProduct.Product.Price</td>
+                    @if (orderProduct == Model.Orders[i].OrderProducts.LastOrDefault())
+                    {
+                        <td>@Model.Orders[i].TotalPrice</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
